@@ -3,8 +3,9 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap-reboot.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Navbar,NavbarBrand, NavItem, NavLink} from "reactstrap";
-import Menu from './components/Menu';
+import Menu from './components/MenuComponent';
 import dishes from "./dishes";
+
 
 class App extends Component {
 

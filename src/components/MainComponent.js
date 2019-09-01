@@ -19,8 +19,18 @@ class MainComponent extends Component {
         });
     }
 
+    componentDidMount() {
+        console.log("Main Component componentDidMount invocked");
+    }
+
+    componentDidUpdate(){
+        console.log("Main Component componentDidUpdate invocked");
+    }
+
   render() {
-    return <div>
+    console.log("Main Component render invocked");
+
+    return <React.Fragment>
       <Navbar dark color="primary">
         <div className="container">
           <NavbarBrand href="/" >
@@ -33,7 +43,7 @@ class MainComponent extends Component {
         onClick={dishId => this.onDishSelect(dishId)}
       />
       <DishDetail dish={this.state.selectedDish}/>
-    </div>;
+    </React.Fragment>;
   }
 }
 

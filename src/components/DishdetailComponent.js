@@ -20,7 +20,15 @@ class DishDetail extends Component {
             const commentItems = comments.map(({comment,author,date})=>(
                 <li>
                     <p>{comment}</p>
-                    <p>-- {author}, {new Date(date).toDateString()}</p>
+                    <p>-- {author}, {new Intl.DateTimeFormat(
+                        'en-US',
+                        {
+                            year:"numeric",
+                            day: "2-digit",
+                            month: 'short'
+                        }).format(
+                            new Date(date)
+                        )}</p>
                 </li>
             ));
 
@@ -36,9 +44,11 @@ class DishDetail extends Component {
     render() {
         const {dish} = this.props;
         return dish && (
-            <div className="row">
-                {this.renderDish(dish)}
-                {this.renderComments(dish.comments)}
+            <div className="container">
+                <div className="row">
+                    {this.renderDish(dish)}
+                    {this.renderComments(dish.comments)}
+                </div>
             </div>
         );
     }

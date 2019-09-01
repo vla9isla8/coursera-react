@@ -41,12 +41,12 @@ function Comments({ comments }) {
     return null;
 }
 
-function DishDetail({ dish }) {
+function DishDetail({ dish, comments }) {
     return dish && (
         <div className="container">
             <div className="row">
                 <Dish {...dish} />
-                <Comments comments={dish.comments} />
+                <Comments comments={comments} />
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import {CardBody,CardImg,Card,CardTitle,CardText} from "reactstrap";
+import React from "react";
+import { CardBody, CardImg, Card, CardTitle, CardText } from "reactstrap";
 
 
-function Dish({image,name,description}) {
+function Dish({ image, name, description }) {
     return <div className="col-12 col-md-5 m-1">
         <Card>
             <CardImg width="100%" src={image} alt={name} />
@@ -14,15 +14,15 @@ function Dish({image,name,description}) {
     </div>;
 }
 
-function Comments({comments}) {
+function Comments({ comments }) {
     if (comments) {
-        const commentItems = comments.map(({comment,author,date},idx)=>(
+        const commentItems = comments.map(({ comment, author, date }, idx) => (
             <li key={idx}>
                 <p>{comment}</p>
                 <p>-- {author}, {new Intl.DateTimeFormat(
                     'en-US',
                     {
-                        year:"numeric",
+                        year: "numeric",
                         day: "2-digit",
                         month: 'short'
                     }).format(
@@ -41,12 +41,12 @@ function Comments({comments}) {
     return null;
 }
 
-function DishDetail({dish}) {
+function DishDetail({ dish }) {
     return dish && (
         <div className="container">
             <div className="row">
                 <Dish {...dish} />
-                <Comments comments={dish.comments}/>
+                <Comments comments={dish.comments} />
             </div>
         </div>
     );

@@ -3,21 +3,14 @@ import "bootstrap/dist/css/bootstrap-reboot.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import Main from './components/MainComponent';
+import {BrowserRouter} from "react-router-dom";
 
 class App extends Component {
 
-  componentDidMount() {
-    console.log("App Component componentDidMount invocked");
-  }
-
-  componentDidUpdate(){
-      console.log("App Component componentDidUpdate invocked");
-  }
-
   render() {
-    console.log("App Component render invocked");
-
-    return <Main/>;
+    return <BrowserRouter>
+      <Main/>
+    </BrowserRouter>;
   }
 }
 

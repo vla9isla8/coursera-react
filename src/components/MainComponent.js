@@ -4,6 +4,8 @@ import dishes from "../share/dishes";
 import DishDetail from './DishdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import Home from './HomeComponent';
+import {Switch, Route, Redirect} from 'react-router-dom';
 
 class MainComponent extends Component {
 
@@ -21,13 +23,22 @@ class MainComponent extends Component {
     }
 
     render() {
+
+        const HomePage = () => {
+            return (
+                <Home />
+            );
+        }
+
         return <React.Fragment>
             <Header />
-            <Menu
-                dishes={this.state.dishes}
-                onClick={dishId => this.onDishSelect(dishId)}
-            />
-            <DishDetail dish={this.state.selectedDish} />
+            <Switch>
+                <Route path="/home" component={HomePage} />
+                <Route exact path="/menu" component={() => <Menu 
+                    dishes={this.state.dishes} 
+                    onClick={(dishId) => this.onDishSelect(dishId)} />}  />
+                <Redirect to="/home"/>
+            </Switch>
             <Footer/>
         </React.Fragment>;
     }

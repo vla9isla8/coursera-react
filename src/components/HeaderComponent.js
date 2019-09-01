@@ -29,7 +29,7 @@ class Header extends Component {
                             className="mr-auto" 
                             href="/" >
                                 <img 
-                                    src="assets/images/logo.png" 
+                                    src="/assets/images/logo.png" 
                                     height="30" 
                                     width="30" 
                                     alt="Ristorante Con Fusion" />

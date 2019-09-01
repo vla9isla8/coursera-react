@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import HomePage from './pages/HomePageComponent';
-import MenuPage from './pages/MenuPageComponents';
+import MenuPage from './pages/MenuPageComponent';
 import ContactPage from './pages/ContactPageComponent';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {DISHES,COMMENTS,LEADERS,PROMOTIONS} from "../share/dishes";
+import DishdetailPage from './pages/DishdetailPageComponent';
 
 class MainComponent extends Component {
 
@@ -42,7 +43,15 @@ class MainComponent extends Component {
                     path="/menu"
                     component={() => <MenuPage
                         dishes={this.state.dishes}
+                    />}
+                />
+                <Route 
+                    exact
+                    path="/menu/:dishId"
+                    component={({match}) => <DishdetailPage
+                        dishes={this.state.dishes}
                         comments={this.state.comments}
+                        dishId={parseInt(match.params.dishId)}
                     />}
                 />
                 <Redirect to="/home"/>

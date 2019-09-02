@@ -4,22 +4,12 @@ import Footer from './FooterComponent';
 import HomePage from './pages/HomePageComponent';
 import MenuPage from './pages/MenuPageComponent';
 import ContactPage from './pages/ContactPageComponent';
-import {Switch, Route, Redirect} from 'react-router-dom';
-import {DISHES,COMMENTS,LEADERS,PROMOTIONS} from "../share/dishes";
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
+import {connect} from "react-redux";
 
 class MainComponent extends Component {
-
-    constructor(props){
-        super(props);
-        this.state = {
-            dishes: DISHES,
-            comments: COMMENTS,
-            leaders: LEADERS,
-            promotions: PROMOTIONS
-        }
-    }
 
     render() {
 
@@ -29,9 +19,9 @@ class MainComponent extends Component {
                 <Route 
                     path="/home" 
                     component={()=> <HomePage 
-                        dishes={this.state.dishes}
-                        leaders={this.state.leaders}
-                        promotions={this.state.promotions}
+                        dishes={this.props.dishes}
+                        leaders={this.props.leaders}
+                        promotions={this.props.promotions}
                     /> }
                 />
                 <Route 
@@ -43,22 +33,22 @@ class MainComponent extends Component {
                     exact
                     path="/aboutus"
                     component={() => <About
-                        leaders={this.state.leaders}
+                        leaders={this.props.leaders}
                     />} 
                 />
                 <Route 
                     exact
                     path="/menu"
                     component={() => <MenuPage
-                        dishes={this.state.dishes}
+                        dishes={this.props.dishes}
                     />}
                 />
                 <Route 
                     exact
                     path="/menu/:dishId"
                     component={({match}) => <DishdetailPage
-                        dishes={this.state.dishes}
-                        comments={this.state.comments}
+                        dishes={this.props.dishes}
+                        comments={this.props.comments}
                         dishId={parseInt(match.params.dishId)}
                     />}
                 />
@@ -69,4 +59,8 @@ class MainComponent extends Component {
     }
 }
 
-export default MainComponent;
+const mapStateToProps = (state) => ({
+    ...state
+});
+
+export default withRouter(connect(mapStateToProps)(MainComponent));

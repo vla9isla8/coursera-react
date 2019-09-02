@@ -7,6 +7,7 @@ import ContactPage from './pages/ContactPageComponent';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {DISHES,COMMENTS,LEADERS,PROMOTIONS} from "../share/dishes";
 import DishdetailPage from './pages/DishdetailPageComponent';
+import About from './pages/AboutusPageComponent';
 
 class MainComponent extends Component {
 
@@ -37,6 +38,13 @@ class MainComponent extends Component {
                     exact
                     path="/contactus"
                     component={ContactPage} 
+                />
+                <Route 
+                    exact
+                    path="/aboutus"
+                    component={() => <About
+                        leaders={this.state.leaders}
+                    />} 
                 />
                 <Route 
                     exact

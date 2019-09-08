@@ -151,14 +151,14 @@ function Comments({comments, onAddComment}) {
 
 function DishDetail({dish, comments, addComment}) {
     const onAddComment = (rating, author, comment) => addComment(dish.id, rating, author, comment);
-    return dish && (
+    return dish ? (
         <div className="container">
             <div className="row">
                 <Dish {...dish} />
                 <Comments comments={comments} onAddComment={onAddComment}/>
             </div>
         </div>
-    );
+    ) : null;
 }
 
 export default DishDetail;

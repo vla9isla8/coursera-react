@@ -8,19 +8,24 @@ import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
-import {addComment} from "../redux/ActionCreators";
+import {addComment, fetchDishes} from "../redux/ActionCreators";
 
 class MainComponent extends Component {
 
-    render() {
+    componentDidMount() {
+        this.props.fetchDishes();
+    }
 
+    render() {
         return <React.Fragment>
             <Header />
             <Switch>
                 <Route 
                     path="/home" 
-                    component={()=> <HomePage 
+                    component={()=> <HomePage
                         dishes={this.props.dishes}
+                        dishesLoading={this.props.dishesLoading}
+                        dishesErrMess={this.props.dishesErrMess}
                         leaders={this.props.leaders}
                         promotions={this.props.promotions}
                     /> }
@@ -41,6 +46,8 @@ class MainComponent extends Component {
                     exact
                     path="/menu"
                     component={() => <MenuPage
+                        dishesLoading={this.props.dishesLoading}
+                        dishesErrMess={this.props.dishesErrMess}
                         dishes={this.props.dishes}
                     />}
                 />
@@ -49,6 +56,8 @@ class MainComponent extends Component {
                     path="/menu/:dishId"
                     component={({match}) => <DishdetailPage
                         dishes={this.props.dishes}
+                        dishesLoading={this.props.dishesLoading}
+                        dishesErrMess={this.props.dishesErrMess}
                         comments={this.props.comments}
                         dishId={parseInt(match.params.dishId)}
                         addComment={this.props.addComment}
@@ -61,11 +70,20 @@ class MainComponent extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    ...state
-});
+const mapStateToProps = (state) => {
+    return {
+        dishes: state.dishes.dishes,
+        dishesLoading: state.dishes.isLoading,
+        dishesErrMess: state.dishes.errMess,
+        promotions: state.promotions,
+        leaders: state.leaders,
+        comments: state.comments,
+    }
+};
+
 const mapDispatchToProps = {
-    addComment
+    addComment,
+    fetchDishes
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

@@ -1,11 +1,10 @@
-import React, {Component} from "react";
-import {Card, CardBody, CardImg, CardText, CardTitle, Col, Label, Row} from "reactstrap";
-
 import Button from "reactstrap/es/Button";
+import React, {Component} from "react";
 import Modal from "reactstrap/es/Modal";
 import ModalHeader from "reactstrap/es/ModalHeader";
 import ModalBody from "reactstrap/es/ModalBody";
 import {Control, Errors, LocalForm} from "react-redux-form";
+import {Col, Label, Row} from "reactstrap";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => val && val.length <= len;
@@ -111,53 +110,4 @@ class CommentForm extends Component {
     }
 }
 
-
-function Dish({ image, name, description }) {
-    return <div className="col-12 col-md-5 m-1">
-        <Card>
-            <CardImg width="100%" src={image} alt={name} />
-            <CardBody>
-                <CardTitle>{name}</CardTitle>
-                <CardText>{description}</CardText>
-            </CardBody>
-        </Card>
-    </div>;
-}
-
-function Comments({ comments }) {
-    const commentItems = comments ? comments.map(({comment, author, date}, idx) => (
-        <li key={idx}>
-            <p>{comment}</p>
-            <p>-- {author}, {new Intl.DateTimeFormat(
-                'en-US',
-                {
-                    year: "numeric",
-                    day: "2-digit",
-                    month: 'short'
-                }).format(
-                new Date(date)
-            )}</p>
-        </li>
-    )) : null;
-
-    return <div className="col-12 col-md-5 m-1">
-        <h4>Comments</h4>
-        <ul className="list-unstyled">
-            {commentItems}
-        </ul>
-        <CommentForm/>
-    </div>;
-}
-
-function DishDetail({ dish, comments }) {
-    return dish && (
-        <div className="container">
-            <div className="row">
-                <Dish {...dish} />
-                <Comments comments={comments} />
-            </div>
-        </div>
-    );
-}
-
-export default DishDetail;
+export default CommentForm;

@@ -9,6 +9,7 @@ import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
 import {addComment, fetchDishes} from "../redux/ActionCreators";
+import {actions} from "react-redux-form";
 
 class MainComponent extends Component {
 
@@ -30,10 +31,10 @@ class MainComponent extends Component {
                         promotions={this.props.promotions}
                     /> }
                 />
-                <Route 
+                <Route
                     exact
                     path="/contactus"
-                    component={ContactPage} 
+                    component={() => <ContactPage resetFeedbackForm={this.props.resetFeedbackForm}/>}
                 />
                 <Route 
                     exact
@@ -83,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     addComment,
-    fetchDishes
+    fetchDishes,
+    resetFeedbackForm: () => actions.reset('feedback')
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

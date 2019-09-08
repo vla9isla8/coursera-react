@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import HomePage from './pages/HomePageComponent';
 import MenuPage from './pages/MenuPageComponent';
 import ContactPage from './pages/ContactPageComponent';
-import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
+import {addComment} from "../redux/ActionCreators";
 
 class MainComponent extends Component {
 
@@ -50,6 +51,7 @@ class MainComponent extends Component {
                         dishes={this.props.dishes}
                         comments={this.props.comments}
                         dishId={parseInt(match.params.dishId)}
+                        addComment={this.props.addComment}
                     />}
                 />
                 <Redirect to="/home"/>
@@ -62,5 +64,8 @@ class MainComponent extends Component {
 const mapStateToProps = (state) => ({
     ...state
 });
+const mapDispatchToProps = {
+    addComment
+};
 
-export default withRouter(connect(mapStateToProps)(MainComponent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));

@@ -26,8 +26,8 @@ class CommentForm extends Component {
         }));
     };
 
-    handleSubmit = (values) => {
-        alert(JSON.stringify(values));
+    handleSubmit = ({author, rating, comment}) => {
+        this.props.onAddComment(rating, author, comment);
     };
 
     render() {
@@ -124,7 +124,7 @@ function Dish({ image, name, description }) {
     </div>;
 }
 
-function Comments({ comments }) {
+function Comments({comments, onAddComment}) {
     const commentItems = comments ? comments.map(({comment, author, date}, idx) => (
         <li key={idx}>
             <p>{comment}</p>
@@ -145,16 +145,17 @@ function Comments({ comments }) {
         <ul className="list-unstyled">
             {commentItems}
         </ul>
-        <CommentForm/>
+        <CommentForm onAddComment={onAddComment}/>
     </div>;
 }
 
-function DishDetail({ dish, comments }) {
+function DishDetail({dish, comments, addComment}) {
+    const onAddComment = (rating, author, comment) => addComment(dish.id, rating, author, comment);
     return dish && (
         <div className="container">
             <div className="row">
                 <Dish {...dish} />
-                <Comments comments={comments} />
+                <Comments comments={comments} onAddComment={onAddComment}/>
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 import Dishdetail from "../DishdetailComponent";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import {Breadcrumb, BreadcrumbItem} from "reactstrap";
 import {Link} from "react-router-dom";
 
-function DishdetailPage({dishes,comments,dishId}) {
+function DishdetailPage({dishes, comments, dishId, addComment}) {
     const dish = dishes.find(({id})=> id === dishId);
     const dishComments = dish && comments.filter(comment => comment.dishId === dishId);
     return (
@@ -28,8 +28,9 @@ function DishdetailPage({dishes,comments,dishId}) {
                 </div>
             </div>
             <Dishdetail
-                dish={dish} 
+                dish={dish}
                 comments={dishComments}
+                addComment={addComment}
             />
         </>
     );

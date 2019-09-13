@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "../HomeComponent";
 
-function HomePage({dishes, promotions, leaders, dishesLoading, dishesErrMess, promotionsLoading, promotionsErrMess}) {
+function HomePage({dishes, promotions, leaders, dishesLoading, dishesErrMess, promotionsLoading, promotionsErrMess, leadersLoading, leadersErrMess}) {
     return <Home
         dis
         dish={dishes.filter((dish) => dish.featured)[0]}
@@ -11,6 +11,8 @@ function HomePage({dishes, promotions, leaders, dishesLoading, dishesErrMess, pr
         dishesErrMess={dishesErrMess}
         promotionsLoading={promotionsLoading}
         promotionsErrMess={promotionsErrMess}
+        leadersLoading={leadersLoading}
+        leadersErrMess={leadersErrMess}
     />;
 }
 export default HomePage;

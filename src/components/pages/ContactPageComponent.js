@@ -18,8 +18,7 @@ class ContactPage extends Component {
 
 
     handleSubmit(values) {
-        alert("State: " + JSON.stringify(values));
-        this.props.resetFeedbackForm();
+        this.props.sendFeedback(values);
     }
 
     render() {

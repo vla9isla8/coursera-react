@@ -166,3 +166,73 @@ export const fetchPromos = () => (dispatch) => {
         .then(promos => dispatch(addPromos(promos)))
         .catch(reason => dispatch(promosFailed(reason.message)));
 };
+
+function leadersLoading() {
+    return {
+        type: ActionTypes.LEADERS_LOADING
+    };
+}
+
+function addLeaders(leaders) {
+    return {
+        type: ActionTypes.ADD_LEADERS,
+        payload: leaders
+    };
+}
+
+function leadersFailed(errMes) {
+    return {
+        type: ActionTypes.LEADERS_FAILED,
+        payload: errMes
+    }
+}
+
+export const fetchLeaders = () => (dispatch) => {
+    dispatch(leadersLoading());
+    return fetch(baseUrl + 'leaders')
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error('Error ' + response.status + ": " + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            reason => {
+                const error = new Error(reason.message);
+                throw error;
+            })
+        .then(response => response.json())
+        .then(promos => dispatch(addLeaders(promos)))
+        .catch(reason => dispatch(leadersFailed(reason.message)));
+};
+
+export const postFeedback = (feedback) => dispatch => {
+    fetch(baseUrl + "feedback", {
+        method: "POST",
+        body: JSON.stringify(feedback),
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error('Error ' + response.status + ": " + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        reason => {
+            const error = new Error(reason.message);
+            throw error;
+        })
+        .then(response => response.json())
+        .then(feedback => alert(JSON.stringify(feedback)))
+        .catch(error => {
+            console.log('post comments', error.message);
+            alert('Your comment could not be posted\nError: ' + error.message);
+        });
+};

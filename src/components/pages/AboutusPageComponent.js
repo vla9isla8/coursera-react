@@ -1,13 +1,15 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, 
-    CardHeader, Media } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media} from 'reactstrap';
+import {Link} from 'react-router-dom';
+import Loading from "../LoadingComponent";
+import {baseUrl} from "../../share/baseUrl";
+import {Fade, Stagger} from "react-animation-components";
 
 function RenderLeader({name,image,description,designation}) {
     return (
         <Media tag="li">
             <Media left middle>
-                <Media object src={image} alt={name} />
+                <Media object src={baseUrl + image} alt={name}/>
             </Media>
             <Media body className="ml-5">
             <Media heading>{name}</Media>
@@ -18,11 +20,28 @@ function RenderLeader({name,image,description,designation}) {
     );
 }
 
-function About(props) {
-
-    const leaders = props.leaders.map((leader) => {
-        return <RenderLeader {...leader} />;
-    });
+function About({isLoading, errMess, ...props}) {
+    let leadersContent;
+    if (isLoading) {
+        leadersContent = <Loading/>;
+    } else if (errMess) {
+        leadersContent = <div className="col-12">
+            <h4>{errMess}</h4>
+        </div>;
+    } else {
+        const leaders = props.leaders.map((leader) => {
+            return <Fade in><RenderLeader {...leader} /></Fade>;
+        });
+        leadersContent = (
+            <div className="col-12">
+                <Media list>
+                    <Stagger in>
+                        {leaders}
+                    </Stagger>
+                </Media>
+            </div>
+        );
+    }
 
     return(
         <div className="container">
@@ -78,12 +97,9 @@ function About(props) {
                 <div className="col-12">
                     <h2>Corporate Leadership</h2>
                 </div>
-                <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
-                </div>
+                {leadersContent}
             </div>
+            ;
         </div>
     );
 }

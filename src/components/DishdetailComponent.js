@@ -7,6 +7,7 @@ import ModalHeader from "reactstrap/es/ModalHeader";
 import ModalBody from "reactstrap/es/ModalBody";
 import {Control, Errors, LocalForm} from "react-redux-form";
 import {baseUrl} from "../share/baseUrl";
+import {Fade, FadeTransform, Stagger} from "react-animation-components";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => val && val.length <= len;
@@ -113,8 +114,10 @@ class CommentForm extends Component {
 }
 
 
-function Dish({ image, name, description }) {
-    return <div className="col-12 col-md-5 m-1">
+const Dish = React.memo(({image, name, description}) => <div className="col-12 col-md-5 m-1">
+    <FadeTransform in transformProps={{
+        exitTransform: 'scale(0.5) translateY(-50%)'
+    }}>
         <Card>
             <CardImg width="100%" src={baseUrl + image} alt={name}/>
             <CardBody>
@@ -122,29 +125,33 @@ function Dish({ image, name, description }) {
                 <CardText>{description}</CardText>
             </CardBody>
         </Card>
-    </div>;
-}
+    </FadeTransform>
+</div>);
 
 function Comments({comments, onAddComment}) {
     const commentItems = comments ? comments.map(({comment, author, date}, idx) => (
-        <li key={idx}>
-            <p>{comment}</p>
-            <p>-- {author}, {new Intl.DateTimeFormat(
-                'en-US',
-                {
-                    year: "numeric",
-                    day: "2-digit",
-                    month: 'short'
-                }).format(
-                new Date(date)
-            )}</p>
-        </li>
+        <Fade>
+            <li key={idx}>
+                <p>{comment}</p>
+                <p>-- {author}, {new Intl.DateTimeFormat(
+                    'en-US',
+                    {
+                        year: "numeric",
+                        day: "2-digit",
+                        month: 'short'
+                    }).format(
+                    new Date(date)
+                )}</p>
+            </li>
+        </Fade>
     )) : null;
 
     return <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         <ul className="list-unstyled">
-            {commentItems}
+            <Stagger in>
+                {commentItems}
+            </Stagger>
         </ul>
         <CommentForm onAddComment={onAddComment}/>
     </div>;

@@ -4,8 +4,8 @@ import {Breadcrumb, BreadcrumbItem} from "reactstrap";
 import {Link} from "react-router-dom";
 import Loading from "../LoadingComponent";
 
-function DishdetailPage({dishes, dishesLoading, dishesErrMess, comments, dishId, addComment}) {
-    if (dishesLoading) {
+function DishdetailPage({dishes, isLoading, dishesErrMess, commentsErrMess, comments, dishId, addComment}) {
+    if (isLoading) {
         return <div className="container">
             <div className="row">
                 <Loading/>
@@ -17,6 +17,14 @@ function DishdetailPage({dishes, dishesLoading, dishesErrMess, comments, dishId,
         return <div className="container">
             <div className="row">
                 <h4>{dishesErrMess}</h4>
+            </div>
+        </div>
+    }
+
+    if (commentsErrMess) {
+        return <div className="container">
+            <div className="row">
+                <h4>{commentsErrMess}</h4>
             </div>
         </div>
     }

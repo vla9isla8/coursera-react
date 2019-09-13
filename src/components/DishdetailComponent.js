@@ -6,6 +6,7 @@ import Modal from "reactstrap/es/Modal";
 import ModalHeader from "reactstrap/es/ModalHeader";
 import ModalBody from "reactstrap/es/ModalBody";
 import {Control, Errors, LocalForm} from "react-redux-form";
+import {baseUrl} from "../share/baseUrl";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => val && val.length <= len;
@@ -115,7 +116,7 @@ class CommentForm extends Component {
 function Dish({ image, name, description }) {
     return <div className="col-12 col-md-5 m-1">
         <Card>
-            <CardImg width="100%" src={image} alt={name} />
+            <CardImg width="100%" src={baseUrl + image} alt={name}/>
             <CardBody>
                 <CardTitle>{name}</CardTitle>
                 <CardText>{description}</CardText>

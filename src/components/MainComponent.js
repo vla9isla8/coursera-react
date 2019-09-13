@@ -10,6 +10,7 @@ import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
 import {fetchComments, fetchDishes, fetchPromos, postComment} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 class MainComponent extends Component {
 
@@ -22,55 +23,59 @@ class MainComponent extends Component {
     render() {
         return <React.Fragment>
             <Header />
-            <Switch>
-                <Route 
-                    path="/home" 
-                    component={()=> <HomePage
-                        dishes={this.props.dishes}
-                        dishesLoading={this.props.dishesLoading}
-                        dishesErrMess={this.props.dishesErrMess}
-                        leaders={this.props.leaders}
-                        promotions={this.props.promotions}
-                        promotionsLoading={this.props.promotionsLoading}
-                        promotionsErrMess={this.props.promotionsErrMess}
-                    /> }
-                />
-                <Route
-                    exact
-                    path="/contactus"
-                    component={() => <ContactPage resetFeedbackForm={this.props.resetFeedbackForm}/>}
-                />
-                <Route 
-                    exact
-                    path="/aboutus"
-                    component={() => <About
-                        leaders={this.props.leaders}
-                    />} 
-                />
-                <Route 
-                    exact
-                    path="/menu"
-                    component={() => <MenuPage
-                        dishesLoading={this.props.dishesLoading}
-                        dishesErrMess={this.props.dishesErrMess}
-                        dishes={this.props.dishes}
-                    />}
-                />
-                <Route 
-                    exact
-                    path="/menu/:dishId"
-                    component={({match}) => <DishdetailPage
-                        dishes={this.props.dishes}
-                        isLoading={this.props.dishesLoading || this.props.commentsLoading}
-                        dishesErrMess={this.props.dishesErrMess}
-                        comments={this.props.comments}
-                        commentsErrMess={this.props.commentsErrMess}
-                        dishId={parseInt(match.params.dishId)}
-                        addComment={this.props.postComment}
-                    />}
-                />
-                <Redirect to="/home"/>
-            </Switch>
+            <TransitionGroup>
+                <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                    <Switch>
+                        <Route
+                            path="/home"
+                            component={() => <HomePage
+                                dishes={this.props.dishes}
+                                dishesLoading={this.props.dishesLoading}
+                                dishesErrMess={this.props.dishesErrMess}
+                                leaders={this.props.leaders}
+                                promotions={this.props.promotions}
+                                promotionsLoading={this.props.promotionsLoading}
+                                promotionsErrMess={this.props.promotionsErrMess}
+                            />}
+                        />
+                        <Route
+                            exact
+                            path="/contactus"
+                            component={() => <ContactPage resetFeedbackForm={this.props.resetFeedbackForm}/>}
+                        />
+                        <Route
+                            exact
+                            path="/aboutus"
+                            component={() => <About
+                                leaders={this.props.leaders}
+                            />}
+                        />
+                        <Route
+                            exact
+                            path="/menu"
+                            component={() => <MenuPage
+                                dishesLoading={this.props.dishesLoading}
+                                dishesErrMess={this.props.dishesErrMess}
+                                dishes={this.props.dishes}
+                            />}
+                        />
+                        <Route
+                            exact
+                            path="/menu/:dishId"
+                            component={({match}) => <DishdetailPage
+                                dishes={this.props.dishes}
+                                isLoading={this.props.dishesLoading || this.props.commentsLoading}
+                                dishesErrMess={this.props.dishesErrMess}
+                                comments={this.props.comments}
+                                commentsErrMess={this.props.commentsErrMess}
+                                dishId={parseInt(match.params.dishId)}
+                                addComment={this.props.postComment}
+                            />}
+                        />
+                        <Redirect to="/home"/>
+                    </Switch>
+                </CSSTransition>
+            </TransitionGroup>
             <Footer/>
         </React.Fragment>;
     }

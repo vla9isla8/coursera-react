@@ -8,7 +8,7 @@ import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
-import {addComment, fetchComments, fetchDishes, fetchPromos} from "../redux/ActionCreators";
+import {addComment, fetchComments, fetchDishes, fetchPromos, postComment} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
 
 class MainComponent extends Component {
@@ -66,7 +66,7 @@ class MainComponent extends Component {
                         comments={this.props.comments}
                         commentsErrMess={this.props.commentsErrMess}
                         dishId={parseInt(match.params.dishId)}
-                        addComment={this.props.addComment}
+                        addComment={this.props.postComment}
                     />}
                 />
                 <Redirect to="/home"/>
@@ -92,7 +92,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    addComment,
+    postComment,
     fetchDishes,
     fetchPromos,
     fetchComments,

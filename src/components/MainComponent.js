@@ -8,7 +8,7 @@ import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import DishdetailPage from './pages/DishdetailPageComponent';
 import About from './pages/AboutusPageComponent';
 import {connect} from "react-redux";
-import {addComment, fetchComments, fetchDishes, fetchPromos, postComment} from "../redux/ActionCreators";
+import {fetchComments, fetchDishes, fetchPromos, postComment} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
 
 class MainComponent extends Component {
